@@ -1,34 +1,28 @@
 import numpy as np
 
-var_limit = 14  # change according to game
+var_limit = 13  # change according to game
 
 
-def func(a, b, c):
-    if a <= 0.5 or b <= 0 or c <= 0:
+def func(x, y, z):
+    if x <= 0.5 or y <= 0 or z <= 0:
         return -np.inf
-    return (b * c) ** (a / 2 - 0.5)
+    return (y * z) ** (x / 2 - 0.5)
 
 
-def constraint(a, b, c):
-    return b ** 2 - 4 * a * c >= 0
+def is_valid(x, y, z):
+    return y ** 2 - 4 * x * z >= 0
 
 
-a_range = range(0, var_limit + 1)
-b_range = range(0, var_limit + 1)
-c_range = range(0, var_limit + 1)
+candidates = [
+    (x, y, z)
+    for x in range(var_limit + 1)
+    for y in range(var_limit + 1)
+    for z in range(var_limit + 1)
+    if is_valid(x, y, z)
+]
 
-max_value = -np.inf
-max_coords = (0, 0, 0)
+x_max, y_max, z_max = max(candidates, key=lambda vars: func(*vars))
+max_value = func(x_max, y_max, z_max)
 
-for a in a_range:
-    for b in b_range:
-        for c in c_range:
-            if constraint(a, b, c):
-                value = func(a, b, c)
-                if value > max_value:
-                    max_value = value
-                    max_coords = (a, b, c)
-
-a_max, b_max, c_max = max_coords
-print(f'maximum at: a = {a_max}, b = {b_max}, c = {c_max}')
+print(f'maximum at: a = {x_max}, b = {y_max}, c = {z_max}')
 print(f'maximum value: {max_value:.4f}')
