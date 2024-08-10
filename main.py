@@ -1,4 +1,5 @@
 import numpy as np
+from decimal import Decimal
 
 var_limit = 15  # change according to game
 
@@ -25,4 +26,4 @@ a_max, b_max, c_max = max(candidates, key=lambda vars: func(*vars))
 max_value = func(a_max, b_max, c_max)
 
 print(f'maximum at: a = {a_max}, b = {b_max}, c = {c_max}')
-print(f'maximum value: {max_value:.4f}')
+print('maximum value: ', '{:.2e}'.format(Decimal(max_value)))
