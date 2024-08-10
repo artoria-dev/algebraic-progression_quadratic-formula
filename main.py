@@ -1,28 +1,28 @@
 import numpy as np
 
-var_limit = 13  # change according to game
+var_limit = 15  # change according to game
 
 
-def func(x, y, z):
-    if x <= 0.5 or y <= 0 or z <= 0:
+def func(a, b, c):
+    if a <= 0.5 or b <= 0 or c <= 0:
         return -np.inf
-    return (y * z) ** (x / 2 - 0.5)
+    return (b * c) ** (a / 2 - 0.5)
 
 
-def is_valid(x, y, z):
-    return y ** 2 - 4 * x * z >= 0
+def is_valid(a, b, c):
+    return b ** 2 - 4 * a * c >= 0
 
 
 candidates = [
-    (x, y, z)
-    for x in range(var_limit + 1)
-    for y in range(var_limit + 1)
-    for z in range(var_limit + 1)
-    if is_valid(x, y, z)
+    (a, b, c)
+    for a in range(var_limit + 1)
+    for b in range(var_limit + 1)
+    for c in range(var_limit + 1)
+    if is_valid(a, b, c)
 ]
 
-x_max, y_max, z_max = max(candidates, key=lambda vars: func(*vars))
-max_value = func(x_max, y_max, z_max)
+a_max, b_max, c_max = max(candidates, key=lambda vars: func(*vars))
+max_value = func(a_max, b_max, c_max)
 
-print(f'maximum at: a = {x_max}, b = {y_max}, c = {z_max}')
+print(f'maximum at: a = {a_max}, b = {b_max}, c = {c_max}')
 print(f'maximum value: {max_value:.4f}')
