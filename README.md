@@ -1,0 +1,1 @@
+# algebraic-progression_quadratic-formula
